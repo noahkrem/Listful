@@ -26,16 +26,23 @@ class MainWindow(object):
 
     def __init__(self, master):
         self.master = master
+        self.b = Button(master, text = "click me", command = self.popup)
+        self.b.pack()
+        self.b2 = Button(master, text = "print value", command = lambda: sys.stdout.write(self.entryValue()+'\n'))
+        self.b2.pack()
 
     def popup(self):
         self.w = PopupWindow(self.master)
+        self.b["state"] = "disabled"
+        self.master.wait_window(self.w.top)
+        self.b["state"] = "normal"
 
     def entryValue(self):
         return self.w.value
     
 
 if __name__ == "__main__":
-    root = Tk()
+    root = Tk() # Must happen before anything else in the program
     m = MainWindow(root)
     root.mainloop()
 
