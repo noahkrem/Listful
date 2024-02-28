@@ -4,8 +4,8 @@ from tkinter import *
 root = Tk()
 root.title("To-Do List")
 
-e = Entry(root, width=50)
-e.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+e = Entry(root, width=70)
+e.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
 
 def ButtonClick(category):
@@ -19,10 +19,14 @@ def ButtonClick(category):
 #     myLabel.pack()
 
 # Buttons
-MovieButton = Button(root, text="Movie List", padx=50, command=lambda: ButtonClick("Enter a movie name: "))
-TaskButton = Button(root, text="To-Do List", padx=50, command=lambda: ButtonClick("Enter a task: "))
-MovieButton.grid(row=1, column=0)
-TaskButton.grid(row=1, column=1)
+CreateButton = Button(root, text="Create A List", padx=30, command=lambda: ButtonClick("Enter a name for your new list: "))
+AddButton = Button(root, text="Add To A List", padx=30, command=lambda: ButtonClick("Enter the name of the list to add to: "))
+RemoveButton = Button(root, text="Remove From A List", padx=30, command=lambda: ButtonClick("Enter the name of the list to remove from: "))
+DeleteButton = Button(root, text="Delete A List", padx=30, command=lambda: ButtonClick("Enter the name of the list to delete: "))
+CreateButton.grid(row=1, column=0)
+AddButton.grid(row=1, column=1)
+RemoveButton.grid(row=1, column=2)
+DeleteButton.grid(row=1, column=3)
 
 
 
