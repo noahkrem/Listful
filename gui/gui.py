@@ -1,4 +1,5 @@
 from tkinter import *
+from list_operations import *
 
 # Must go first in the program
 root = Tk()
@@ -13,6 +14,11 @@ def ButtonClick(category):
     e.delete(0, END)
     e.insert(0, category)
 
+def AddClick(category):
+    e.delete(0, END)
+    e.insert(0, category)
+    AddElement()
+
 
 # def MyClick():
 #     # Label widget
@@ -21,7 +27,7 @@ def ButtonClick(category):
 
 # Buttons
 CreateButton = Button(root, text="Create A List", padx=30, command=lambda: ButtonClick("Enter a name for your new list: "))
-AddButton = Button(root, text="Add To A List", padx=30, command=lambda: ButtonClick("Enter the name of the list to add to: "))
+AddButton = Button(root, text="Add To A List", padx=30, command=lambda: AddClick("Enter the name of the list to add to: "))
 RemoveButton = Button(root, text="Remove From A List", padx=30, command=lambda: ButtonClick("Enter the name of the list to remove from: "))
 DeleteButton = Button(root, text="Delete A List", padx=30, command=lambda: ButtonClick("Enter the name of the list to delete: "))
 QuitButton = Button(root, text="Quit", padx=30, command=root.quit)

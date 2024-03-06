@@ -1,0 +1,5 @@
+GUI
+- Ask which list should be accessed first
+
+FUNCTIONALITY
+- 
