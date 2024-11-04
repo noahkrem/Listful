@@ -25,6 +25,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 */
 
-const list = document.querySelector("#list")
-const form = document.querySelector("new-task-form")
-const input = document.querySelector("new-task-title")
+const list = document.querySelector<HTMLUListElement>("#list")
+const form = document.querySelector<HTMLFormElement>("new-task-form")
+const input = document.querySelector<HTMLInputElement>("new-task-title")
