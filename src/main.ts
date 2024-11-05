@@ -1,30 +1,33 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { v4 as uuidV4 } from "uuid" 
 
-/*
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
-
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
-*/
+type Task = {  // Custom type
+  id: string
+  title: string
+  completed: boolean
+  createdAt: Date
+}
 
 const list = document.querySelector<HTMLUListElement>("#list")
-const form = document.querySelector<HTMLFormElement>("new-task-form")
+const form = document.getElementById("new-task-form") as HTMLFormElement | null
 const input = document.querySelector<HTMLInputElement>("new-task-title")
+
+form?.addEventListener("submit", e => {
+  e.preventDefault()  // Don't want to accidentally refresh our page
+
+  if (input?.value == "" || input?.value == null) return  // Optional Chaining (Question mark): 
+                                                          // If this thing exists, give me the value. If not, return undefined
+
+  const newTask = {
+    id: uuidV4(),
+    title: input.value,
+    completed: false,
+    createdAt: new Date()
+  }
+
+  addListItem(newTask)
+})
+
+function addListItem(task: Task) {
+
+}
