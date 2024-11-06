@@ -2,9 +2,7 @@ blank_issues_enabled: false
 contact_links:
   - name: Bug Report
     title: "[Bug]: "
-    labels: ["bug"]
     about: Template for bugs.
   - name: New Feature
     title: "[Feature]: "
-    url: https://bounty.github.com/
     about: Please report security vulnerabilities here.
