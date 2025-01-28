@@ -17,6 +17,7 @@ tasks.forEach(addListItem)
 
 // Listen for input from the user
 form?.addEventListener("submit", e => {
+
   e.preventDefault()  // Don't want to accidentally refresh our page
 
   if (input?.value == "" || input?.value == null) return  // Optional Chaining (Question mark): 
@@ -44,6 +45,7 @@ function addListItem(task: Task) {
 
   checkbox.addEventListener("change", () => {
     task.completed = checkbox.checked
+    saveTasks()
     console.log(tasks)
   })
   checkbox.type = "checkbox"
