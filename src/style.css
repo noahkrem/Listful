@@ -73,6 +73,8 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  display: inline-block;
+  margin-left: 10px;
 }
 button:hover {
   border-color: #646cff;

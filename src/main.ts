@@ -42,17 +42,36 @@ function addListItem(task: Task) {
   const item = document.createElement("li")
   const label = document.createElement("label")
   const checkbox = document.createElement("input")
-
+  const deleteButton = document.createElement("button")
+  
+  // Configure the checkbox
+  checkbox.type = "checkbox"
+  checkbox.checked = task.completed
+  checkbox.id = `task-${task.id}`;  // Adding a unique id
+  checkbox.name = `task-${task.id}`;  // Adding a unique name
   checkbox.addEventListener("change", () => {
     task.completed = checkbox.checked
     saveTasks()
     console.log(tasks)
   })
-  checkbox.type = "checkbox"
-  checkbox.checked = task.completed
 
+  // Configure the delete button
+  deleteButton.textContent = "Delete"
+  console.log("Delete button")
+  deleteButton.addEventListener("click", () => {
+    console.log("Delete clicked")
+    // Remove the task from the tasks array
+    const taskIndex = tasks.findIndex(t => t.id === task.id)
+    if (taskIndex > -1) { // If taskIndex exists...
+      tasks.splice(taskIndex, 1)
+      saveTasks()
+      item.remove() // Remove the task from the DOM (Document Object Model, the tree of objects)
+    }
+  })
+
+  // Append elements to the label and item
   label.append(checkbox, task.title)  // Label carries the checkbox and the title of the task
-  item.append(label)  // Item carries the label
+  item.append(label, deleteButton)  // Append the label and the delete button
   list?.append(item)
 }
 
@@ -66,3 +85,9 @@ function loadTasks(): Task[] {
   if (taskJSON == null) return []
   return JSON.parse(taskJSON)
 }
+
+/*
+// Delete task
+function deleteTask(): {
+
+}*/
