@@ -43,6 +43,7 @@ function addListItem(task: Task) {
   const label = document.createElement("label")
   const checkbox = document.createElement("input")
   const deleteButton = document.createElement("button")
+  const editButton = document.createElement("button")
   
   // Configure the checkbox
   checkbox.type = "checkbox"
@@ -57,9 +58,7 @@ function addListItem(task: Task) {
 
   // Configure the delete button
   deleteButton.textContent = "Delete"
-  console.log("Delete button")
   deleteButton.addEventListener("click", () => {
-    console.log("Delete clicked")
     // Remove the task from the tasks array
     const taskIndex = tasks.findIndex(t => t.id === task.id)
     if (taskIndex > -1) { // If taskIndex exists...
@@ -69,9 +68,20 @@ function addListItem(task: Task) {
     }
   })
 
+  // Configure the edit button
+  editButton.textContent = "Edit"
+  editButton.addEventListener("click", () => {
+    const newTitle = prompt("Edit task title:", task.title)
+    if (newTitle != null && newTitle.trim() !== "") { // If the new title is not empty and does not contain only spaces
+      task.title = newTitle.trim();
+      label.childNodes[1].nodeValue = task.title  // Update the label text
+      saveTasks()
+    }
+  })
+
   // Append elements to the label and item
   label.append(checkbox, task.title)  // Label carries the checkbox and the title of the task
-  item.append(label, deleteButton)  // Append the label and the delete button
+  item.append(label, editButton, deleteButton)  // Append the label and the delete button
   list?.append(item)
 }
 
@@ -85,9 +95,3 @@ function loadTasks(): Task[] {
   if (taskJSON == null) return []
   return JSON.parse(taskJSON)
 }
-
-/*
-// Delete task
-function deleteTask(): {
-
-}*/
