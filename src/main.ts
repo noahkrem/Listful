@@ -32,9 +32,8 @@ form?.addEventListener("submit", e => {
 
   tasks.push(newTask)
   saveTasks()
-  
   addListItem(newTask)
-  input.value = ""  // Clear user entry after it has been entered
+  input.value = ""  // Clear input field
 })
 
 // Add a task to the array of tasks
@@ -45,39 +44,10 @@ function addListItem(task: Task) {
   const deleteButton = document.createElement("button")
   const editButton = document.createElement("button")
   
-  // Configure the checkbox
-  checkbox.type = "checkbox"
-  checkbox.checked = task.completed
-  checkbox.id = `task-${task.id}`;  // Adding a unique id
-  checkbox.name = `task-${task.id}`;  // Adding a unique name
-  checkbox.addEventListener("change", () => {
-    task.completed = checkbox.checked
-    saveTasks()
-    console.log(tasks)
-  })
-
-  // Configure the delete button
-  deleteButton.textContent = "Delete"
-  deleteButton.addEventListener("click", () => {
-    // Remove the task from the tasks array
-    const taskIndex = tasks.findIndex(t => t.id === task.id)
-    if (taskIndex > -1) { // If taskIndex exists...
-      tasks.splice(taskIndex, 1)
-      saveTasks()
-      item.remove() // Remove the task from the DOM (Document Object Model, the tree of objects)
-    }
-  })
-
-  // Configure the edit button
-  editButton.textContent = "Edit"
-  editButton.addEventListener("click", () => {
-    const newTitle = prompt("Edit task title:", task.title)
-    if (newTitle != null && newTitle.trim() !== "") { // If the new title is not empty and does not contain only spaces
-      task.title = newTitle.trim();
-      label.childNodes[1].nodeValue = task.title  // Update the label text
-      saveTasks()
-    }
-  })
+  // Configure the task
+  configureCheckbox(checkbox, task)
+  configureDeleteButton(deleteButton, task, item)
+  configureEditButton(editButton, task, label)
 
   // Append elements to the label and item
   label.append(checkbox, task.title)  // Label carries the checkbox and the title of the task
@@ -90,8 +60,48 @@ function saveTasks() {
   localStorage.setItem("TASKS", JSON.stringify(tasks))
 }
 
+// Load the tasks from local storage
 function loadTasks(): Task[] {
   const taskJSON = localStorage.getItem("TASKS")
   if (taskJSON == null) return []
   return JSON.parse(taskJSON)
+}
+
+// Configure the checkbox
+function configureCheckbox(checkbox: HTMLInputElement, task: Task) {
+  checkbox.type = "checkbox"
+  checkbox.checked = task.completed
+  checkbox.id = `task-${task.id}`;  // Adding a unique id
+  checkbox.name = `task-${task.id}`;  // Adding a unique name
+  checkbox.addEventListener("change", () => {
+    task.completed = checkbox.checked
+    saveTasks()
+  })
+}
+
+// Configure the delete button
+function configureDeleteButton(deleteButton: HTMLButtonElement, task: Task, item: HTMLLIElement) {
+  deleteButton.textContent = "Delete"
+  deleteButton.addEventListener("click", () => {
+    // Remove the task from the tasks array
+    const taskIndex = tasks.findIndex(t => t.id === task.id)
+    if (taskIndex > -1) { // If taskIndex exists...
+      tasks.splice(taskIndex, 1)
+      saveTasks()
+      item.remove() // Remove the task from the DOM (Document Object Model, the tree of objects)
+    }
+  })
+}
+
+// Configure the edit button
+function configureEditButton(editButton: HTMLButtonElement, task: Task, label: HTMLLabelElement) {
+  editButton.textContent = "Edit"
+  editButton.addEventListener("click", () => {
+    const newTitle = prompt("Edit task title:", task.title)
+    if (newTitle != null && newTitle.trim() !== "") { // If the new title is not empty and does not contain only spaces
+      task.title = newTitle.trim();
+      label.childNodes[1].nodeValue = task.title  // Update the label text
+      saveTasks()
+    }
+  })
 }
